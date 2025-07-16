@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  eurekaserverapplication:
+    build:
+      context: ./EurekaServerApplication/EurekaServerApplication
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-cloud
+
+  userdetailsmicro:
+    build:
+      context: ./userDetailsMicro/userDetailsMicro
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eurekaserverapplication
+    environment:
+      - EUREKA_SERVER=http://eurekaserverapplication:8761/eureka
+    networks:
+      - spring-cloud
+
+  cartdetailsmicro:
+    build:
+      context: ./cartDetailsMicro/cartDetailsMicro
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eurekaserverapplication
+    environment:
+      - EUREKA_SERVER=http://eurekaserverapplication:8761/eureka
+    networks:
+      - spring-cloud
+
+  ecomapigateway:
+    build:
+      context: ./ecomapigateway/ecomapigateway
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eurekaserverapplication
+      - userdetailsmicro
+      - cartdetailsmicro
+    environment:
+      - EUREKA_SERVER=http://eurekaserverapplication:8761/eureka
+    networks:
+      - spring-cloud
+
+networks:
+  spring-cloud:
