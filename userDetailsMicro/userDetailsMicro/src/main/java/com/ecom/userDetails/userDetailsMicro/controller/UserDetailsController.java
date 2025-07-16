@@ -29,7 +29,9 @@ public UserDetails getUserById(@PathVariable Integer id) {
 
      @PutMapping("/{id}")
     public UserDetails updateUserById(@PathVariable Integer id , @RequestBody UserDetails userDetails){
+		
         return userService.updateUserById(id,userDetails);
+		
      }
 
      @DeleteMapping("/{id}")
