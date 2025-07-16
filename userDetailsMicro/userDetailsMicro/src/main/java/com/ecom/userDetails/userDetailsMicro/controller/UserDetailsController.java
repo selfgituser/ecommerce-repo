@@ -18,9 +18,7 @@ public class UserDetailsController {
 
     @PostMapping("/save")
     public UserDetails createUser(@RequestBody UserDetails userDetails){
-
         UserDetails createdUser = userService.createUser(userDetails);
-
         return createdUser;
     }
 
@@ -31,13 +29,11 @@ public UserDetails getUserById(@PathVariable Integer id) {
 
      @PutMapping("/{id}")
     public UserDetails updateUserById(@PathVariable Integer id , @RequestBody UserDetails userDetails){
-
         return userService.updateUserById(id,userDetails);
      }
 
      @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable Integer id){
-
          userService.deleteById(id);
      }
 
