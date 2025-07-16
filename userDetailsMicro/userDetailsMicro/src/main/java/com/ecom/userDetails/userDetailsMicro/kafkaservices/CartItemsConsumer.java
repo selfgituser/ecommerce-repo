@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 public class CartItemsConsumer {
     @KafkaListener(topics = "cart-items", groupId = "usercart-service-group")
     public void listen(String message) {
+
+
         System.out.println("Received CartItem from Kafka: " + message);
     }
 }
